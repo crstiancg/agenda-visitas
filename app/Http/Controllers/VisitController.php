@@ -80,7 +80,7 @@ class VisitController extends Controller
         $date = $request->get('date');
         $start_hour = $request->get('start_hour');
         $start_date = Carbon::createFromFormat('d/m/Y H:i', $date . ' ' . $start_hour);
-        $end_date = $start_date->copy()->addHour();
+        $end_date = $start_date->copy()->addMinutes(30);
 
         // Save the data
         $visit->update([

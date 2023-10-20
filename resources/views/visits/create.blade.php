@@ -22,7 +22,9 @@
                 @csrf
                 <div class="form-group">
                     <label class="form-label"
-                        for="modal_subject">Asunto</label>
+                        for="modal_subject">Asunto - Motivo de la visita:
+                        <span class="text-red">*</span> 
+                    </label>
                     <input class="form-control"
                         id="subject"
                         name="subject"
@@ -215,6 +217,7 @@
                 <div class="form-group">
                     <label class="form-label mb--1">
                         Seleccionar horario:
+                        <span class="text-red">*</span> 
                         <span class="ml-1 badge-pill btn badge-info py-1"
                             id="datepicker-btn">
                             <i class="far fa-calendar-alt"></i>&nbsp;&nbsp;Fecha
@@ -247,7 +250,9 @@
                     @endif
                 </div>
                 <label class="form-label"
-                    for="modal_visitor_id">Visitante:</label>
+                    for="modal_visitor_id">Visitante:
+                    <span class="text-red">*</span> 
+                </label>
                 <div class="form-group row"
                     id="visitorsContainer">
                     <div class="col pr-0">
@@ -325,7 +330,9 @@
                     <div class="modal-body pb-0 pt-0">
                         <div class="form-group">
                             <label class="form-label"
-                                for="modal_name">Nombre del visitante:</label>
+                                for="modal_name">Nombre del visitante:
+                                <span class="text-red">*</span> 
+                            </label>
                             <input class="form-control"
                                 id="modal_name"
                                 name="modal_name"
@@ -341,7 +348,9 @@
                         </div>
                         <div class="form-group">
                             <label class="form-label"
-                                form="modal_entity">Seleccionar entidad:</label>
+                                form="modal_entity">Seleccionar entidad:
+                                <span class="text-red">*</span> 
+                            </label>
                             <select class="form-control"
                                 id="modal_entity"
                                 name="modal_entity"
@@ -365,11 +374,15 @@
                         <div class="form-group d-none"
                             id="modal_ruc_display">
                             <label class="form-label"
-                                for="modal_ruc">RUC:</label>
+                                for="modal_ruc">RUC:
+                                <span class="text-red">*</span> 
+                            </label>
                             <input class="form-control"
                                 id="modal_ruc"
                                 name="modal_ruc"
-                                type="text" maxlength="11">
+                                type="text" maxlength="11"
+                            placeholder="Ingrese el RUC (11 dígitos)"    
+                            >
                             <div class="d-none"
                                 id="modal_error_ruc">
                                 <div class="mt-2 py-1 pl-2 alert alert-danger error-alert"
@@ -386,11 +399,15 @@
                         <div class="form-group"
                             id="modal_dni_display">
                             <label class="form-label"
-                                for="modal_dni">DNI:</label>
+                                for="modal_dni">DNI:
+                               <span class="text-red">*</span> 
+                            </label>
                             <input class="form-control dni"
                                 id="modal_dni"
                                 name="modal_dni"
-                                type="text" maxlength="8">
+                                type="text" maxlength="8"
+                                placeholder="Ingrese el DNI (8 dígitos)"
+                                >
                             <div class="d-none"
                                 id="modal_error_dni">
                                 <div class="mt-2 py-1 pl-2 alert alert-danger error-alert"

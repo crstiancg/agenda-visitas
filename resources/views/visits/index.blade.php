@@ -252,10 +252,12 @@
                                             href="{{ route('visits.edit', $visit) }}">Editar</a>
 
                                         <!-- Button trigger modal -->
+                                        {{-- @if (auth()->user()->role =="admin")     --}}
                                         <button class="btn btn-sm btn-danger"
                                             data-toggle="modal"
                                             data-target="#deleteModal{{ $visit->id }}"
                                             type="button">Eliminar</button>
+                                        {{-- @endif --}}
                                     </td>
                                 @endauth
                             </tr>
