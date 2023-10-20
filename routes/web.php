@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SecretaryController;
+use App\Http\Controllers\SendController;
 use App\Http\Controllers\VisitController;
 use App\Http\Controllers\VisitorController;
 use Illuminate\Support\Facades\Auth;
@@ -28,5 +29,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('visits', [VisitController::class, 'index'])->name('visits.index');
 Route::get('visist/pdf', [HomeController::class, 'generatePDF'])->name('home.pdf');
+
+Route::get('/activity', [SendController::class, 'updatedActivity'])->name('activity.updatedActivity');
 
 Auth::routes();

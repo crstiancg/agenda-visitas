@@ -10,6 +10,7 @@ use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Telegram\Bot\Laravel\Facades\Telegram;
 
 class VisitController extends Controller
 {
@@ -55,7 +56,7 @@ class VisitController extends Controller
         $end_date = $start_date->copy()->addMinutes(30);
 
         // Save the data
-        Visit::create([
+        $visit = Visit::create([
             'subject' => $request->get('subject'),
             'start_date' => $start_date,
             'end_date' => $end_date,
@@ -99,8 +100,33 @@ class VisitController extends Controller
     {
         try {
             $visit = Visit::findOrFail($request->input('id'));
+            // dd($visit);
             $visit->status = $request->input('status');
             $visit->save();
+
+            $v = $visit->visitor;
+            // $visitor = Visitor::findOrFail($request->input('id'));
+            if($visit->status == "Confirmado") {
+                $date = Carbon::parse($visit->start_date)->format('d/m/Y');
+                $star = Carbon::parse($visit->start_date)->format('H:i');
+                $end = Carbon::parse($visit->end_date)->format('H:i');
+                $text = "<b>VISITA CONFIRMADA</b>\n"
+                . "<strong>REUNIÓN CON:</strong>\n"
+                . "$v->name\n"
+                . "<strong>MOTIVO DE LA VISITA:</strong>\n"
+                . "$visit->subject\n"
+                . "<strong>FECHA:</strong>\n"
+                . "$date\n"
+                . "<strong>HORA:</strong>\n"
+                . "$star - $end\n"
+                . "📌";
+
+                Telegram::sendMessage([
+                    'chat_id' => \env('TELEGRAM_CHANNEL_ID', '-1002021376025'),
+                    'parse_mode' => 'HTML',
+                    'text' => $text
+                ]);
+            }
 
             return response()->json(['message' => 'The visit with an id of ' . $visit->id . ' was updated to ' . $visit->status], 200);
         } catch (ModelNotFoundException $e) {
