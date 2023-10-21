@@ -230,14 +230,14 @@
                                     @if ($visit->visitor->entity=="Persona natural")  
                                         <div>
                                             <span class="text-red text-justify-center">
-                                                <i class="fa fa-spinner fa-spin fa-lg fa-fw" aria-hidden="true"></i>
+                                                <i class="fa fa-user"></i>
                                                 {{ $visit->visitor->entity }}
                                             </span>
                                         </div>
                                     @elseif($visit->visitor->entity=="Persona jurídica")
                                     <div>
                                         <span class="text-blue text-justify-center">
-                                            <i class="fa fa-spinner fa-spin fa-lg fa-fw"></i>
+                                            <i class="fa fa-users"></i>
                                             {{ $visit->visitor->entity }}
                                         </span>
                                     </div>
