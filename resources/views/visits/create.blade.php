@@ -163,27 +163,26 @@
                                             $(`.button-radio button[value^="${visit.date}"]`)
                                                 .prop('disabled', true)
                                                 .attr('title', `Ocupado: ${visit.subject.valor} - ${visit.name.valor}`);
+                                            });
 
-                                                var contenido = "<ul>";
-
-                                                    for (var i = 0; i < visits.length; i++) {
-                                                        var visit = visits[i];
-                                                        contenido += "<li title='" + visit.customTitle + "'>";
-                                                        for (var prop in visit) {
-                                                            if (prop !== 'date' && visit.hasOwnProperty(prop)) {
-                                                                contenido += "<strong style='color: red; font-weight: bold;'>" + visit[prop].titulo + ":</strong> " + visit[prop].valor + "<br> ";
-                                                            }
+                                            var contenido = "<ul>";
+    
+                                                for (var i = 0; i < visits.length; i++) {
+                                                    var visit = visits[i];
+                                                    contenido += "<li title='" + visit.customTitle + "'>";
+                                                    for (var prop in visit) {
+                                                        if (prop !== 'date' && visit.hasOwnProperty(prop)) {
+                                                            contenido += "<strong style='color: red; font-weight: bold;'>" + visit[prop].titulo + ":</strong> " + visit[prop].valor + "<br> ";
                                                         }
-                                                        contenido = contenido.slice(0, -2); // Elimina el último guion y espacio
-                                                        contenido += ".</li><br>";
                                                     }
-
-                                                    contenido += "</ul><br>";
-
-                                                    $("#visit").html(contenido);
-
-                                        });
-                                    }
+                                                    contenido = contenido.slice(0, -2); // Elimina el último guion y espacio
+                                                    contenido += ".</li><br>";
+                                                }
+    
+                                                contenido += "</ul><br>";
+    
+                                                $("#visit").html(contenido);
+                                        }
                                 });
                             }
 

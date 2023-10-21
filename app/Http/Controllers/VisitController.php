@@ -146,6 +146,8 @@ class VisitController extends Controller
     public function getVisits(Request $request)
     {
         $date = Carbon::createFromFormat('d/m/Y', $request->get('date'));
+
+        //dump($request->get('date'));
         $startDate = $date->copy()->startOfDay();
         $endDate = $date->copy()->endOfDay();
 
