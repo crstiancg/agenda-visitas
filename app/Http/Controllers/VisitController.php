@@ -44,6 +44,7 @@ class VisitController extends Controller
     {
         $visitors = Visitor::orderBy('name')->get();
         $entities = Visitor::$entities;
+
         return view('visits.create')->with(compact('visitors', 'entities'));
     }
 
@@ -149,12 +150,13 @@ class VisitController extends Controller
         $endDate = $date->copy()->endOfDay();
 
         $visits = Visit::query()
+            // ->leftJoin('vistors', 'visits.visitor_id', '=', 'vistors.id')
             ->whereBetween('start_date', [$startDate, $endDate])
-            ->orderBy('start_date')
-            // ->get();
-            ->get(['start_date', 'subject']);
+            ->with('visitor')
+            ->get();
+            // ->get(['start_date', 'subject']);
 
-        return response()->json(['visits' => $visits], 200);
+        return response()->json(['visits' => $visits,''], 200);
 
     }
 }

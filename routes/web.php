@@ -32,4 +32,4 @@ Route::get('visist/pdf', [HomeController::class, 'generatePDF'])->name('home.pdf
 
 // Route::get('/activity', [SendController::class, 'updatedActivity'])->name('activity.updatedActivity');
 
-Auth::routes();
+Auth::routes(['register' => false]);

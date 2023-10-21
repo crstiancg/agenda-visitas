@@ -75,7 +75,7 @@
               </div>
               <div class="text-center">
                 <button class="btn btn-primary my-4"
-                  type="submit">Empezar</button>
+                  type="submit">Iniciar Sesión</button>
               </div>
             </form>
           </div>

@@ -133,12 +133,25 @@
                                         const visits = response.visits.map(visit => {
                                             // Turn the date into a moment object
                                             const date = moment(visit.start_date).format('DD/MM/YYYY HH:mm');
+                                            const date2 = moment(visit.start_date).format('DD/MM/YYYY HH:mm');
                                             // Return the hour and the subject
+                                            const titulos = {
+                                                    date: "Hora",
+                                                    asunto: "Asunto",
+                                                    name: "Nombre del visitante"
+                                                };
+
                                             return {
                                                 date: moment(date, 'DD/MM/YYYY HH:mm').format('HH:mm'),
-                                                subject: visit.subject,
+                                                date2: {titulo: titulos.date, valor: moment(date, 'DD/MM/YYYY HH:mm').format('HH:mm')},
+                                                subject: {titulo: titulos.asunto, valor: visit.subject},
+                                                name: {titulo: titulos.name, valor: visit.visitor.name},
+                                                // entity: visit.visitor.entity,
                                             };
+
                                         });
+
+                                        // console.log(visits);
 
                                         // Enable all buttons
                                         $('.button-radio button').prop('disabled', false);
@@ -149,7 +162,26 @@
                                             // Disable all buttons that start with the hour text and set the title attribute to the subject
                                             $(`.button-radio button[value^="${visit.date}"]`)
                                                 .prop('disabled', true)
-                                                .attr('title', `Asunto: ${visit.subject}`);
+                                                .attr('title', `Ocupado: ${visit.subject.valor} - ${visit.name.valor}`);
+
+                                                var contenido = "<ul>";
+
+                                                    for (var i = 0; i < visits.length; i++) {
+                                                        var visit = visits[i];
+                                                        contenido += "<li title='" + visit.customTitle + "'>";
+                                                        for (var prop in visit) {
+                                                            if (prop !== 'date' && visit.hasOwnProperty(prop)) {
+                                                                contenido += "<strong style='color: red; font-weight: bold;'>" + visit[prop].titulo + ":</strong> " + visit[prop].valor + "<br> ";
+                                                            }
+                                                        }
+                                                        contenido = contenido.slice(0, -2); // Elimina el último guion y espacio
+                                                        contenido += ".</li><br>";
+                                                    }
+
+                                                    contenido += "</ul><br>";
+
+                                                    $("#visit").html(contenido);
+
                                         });
                                     }
                                 });
@@ -232,7 +264,7 @@
                         @foreach ($hours as $hour)
                             <button class="badge-pill btn btn-outline-primary px-lg-5 px-md-4 mr-3 mt-2"
                                 type="button"
-                                value="{{ $hour }}">{{ $hour }}</button>
+                                value="{{ $hour }}" data-toggle="tooltip" data-placement="top">{{ $hour }}</button>
                         @endforeach
                     </div>
                     @if ($errors->has('start_hour') || $errors->has('date'))
@@ -307,6 +339,17 @@
                 <button class="btn btn-md btn-primary"
                     type="submit">Crear visita</button>
             </form>
+        </div>
+    </div>
+
+    <div class="card mt-4">
+        <div class="card-body">
+            <div class="card-header">
+                <h3 style='color: red; font-weight: bold;'>VISITAS PROGRAMADAS (Ocupado)...</h1>
+                <div class="row">
+                    <span id="visit"></span>
+                </div>
+            </div>
         </div>
     </div>
 
