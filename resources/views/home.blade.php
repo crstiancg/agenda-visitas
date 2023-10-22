@@ -43,7 +43,7 @@
                           slotLabelFormat: {
                             hour: 'numeric',
                             minute: '2-digit',
-                            omitZeroMinute: false,
+                            omitZeroMinute: true,
                             meridiem: 'short'
                           },
                           noEventsText: 'No hay más visitas para mostrar',
@@ -102,7 +102,7 @@
                               right: null,
                             });
                           } else {
-                            calendar.changeView('timeGridWeek');
+                            calendar.changeView('listWeek');
                             calendar.setOption('headerToolbar', {
                               left: 'prev,next today',
                               center: 'title',

@@ -172,7 +172,7 @@
                                                     contenido += "<li title='" + visit.customTitle + "'>";
                                                     for (var prop in visit) {
                                                         if (prop !== 'date' && visit.hasOwnProperty(prop)) {
-                                                            contenido += "<strong style='color: red; font-weight: bold;'>" + visit[prop].titulo + ":</strong> " + visit[prop].valor + "<br> ";
+                                                            contenido += "<strong style='color: #172b4d; font-weight: 900; text-transform: uppercase;'>" + visit[prop].titulo + ":</strong> " + visit[prop].valor + ".<br> ";
                                                         }
                                                     }
                                                     contenido = contenido.slice(0, -2); // Elimina el último guion y espacio
@@ -341,15 +341,13 @@
         </div>
     </div>
 
-    <div class="card mt-4">
-        <div class="card-body">
-            <div class="card-header">
-                <h3 style='color: red; font-weight: bold;'>VISITAS PROGRAMADAS (Ocupado)...</h1>
-                <div class="row">
-                    <span id="visit"></span>
-                </div>
+    <div class="card mt-4 shadow">
+        <div class="card card-frame">
+            <div class="card-body">
+                <h3 class="text-default">VISITAS PROGRAMADAS (Ocupado)...</h1>
+                <span id="visit"></span>
             </div>
-        </div>
+          </div>
     </div>
 
     <div class="modal fade"

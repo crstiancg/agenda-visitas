@@ -6,7 +6,7 @@
   <div class="container mt--8 pb-5">
     <div class="row justify-content-center">
       <div class="col-lg-5 col-md-7">
-        <div class="card bg-secondary shadow border-primary">
+        <div class="card">
 
           <div class="card-body px-lg-5 py-lg-5">
             @if ($errors->any())
@@ -74,7 +74,7 @@
                 </label>
               </div>
               <div class="text-center">
-                <button class="btn btn-primary my-4"
+                <button class="btn btn-outline-info my-4"
                   type="submit">Iniciar Sesión</button>
               </div>
             </form>

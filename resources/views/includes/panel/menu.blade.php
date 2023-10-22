@@ -12,7 +12,7 @@
 @endphp
 
 <!-- Heading -->
-<h6 class="navbar-heading text-muted mt--4">Gestión</h6>
+<h6 class="navbar-heading text-muted mt--4">Panel de Navegación</h6>
 <ul class="navbar-nav">
   <li class="nav-item {{ is_active('home') }}">
     <a class="nav-link {{ is_active('home') }}"

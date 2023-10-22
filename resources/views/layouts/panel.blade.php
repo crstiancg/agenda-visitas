@@ -139,14 +139,14 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <!-- Brand -->
-
+{{-- 
                 <a class="navbar-brand pt-1"
                     href="#">
                     <img class="h-auto w-100"
                         src="{{ asset('img/brand/logo_visitasMPP.png') }}"
                         alt="..."
                         style="max-height: 200px; max-width: 180px;">
-                </a>
+                </a> --}}
 
 
 
@@ -190,7 +190,7 @@
                     </li>
                 </ul>
                 <!-- Collapse -->
-                <div class="collapse navbar-collapse "
+                <div class="collapse navbar-collapse"
                     id="sidenav-collapse-main">
                     <!-- Collapse header -->
                     <div class="navbar-collapse-header d-md-none">
@@ -279,7 +279,7 @@
         <!-- End Navbar -->
         <!-- Header -->
         @auth
-            <div class="header bg-gradient-info pb-8 pt-4 pt-md-6">
+            <div class="header bg-gradient-default pb-8 pt-4 pt-md-6">
 
             </div>
         @endauth
@@ -288,7 +288,7 @@
         @guest()
 
 
-            <div class="header bg-gradient-white pb-8 pt-4 pt-md-6">
+            <div class="header bg-gradient-success pb-8 pt-4 pt-md-6">
                 <div class="container">
                     <div class="element">
                         <img class="logo"src="img/brand/logo_visitasMPP.png"

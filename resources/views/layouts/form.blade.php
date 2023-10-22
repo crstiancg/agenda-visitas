@@ -18,55 +18,9 @@
     <link href="{{ asset('css/argon-dashboard.css?v=1.1.2') }}" rel="stylesheet" />
 </head>
 
-<body class="bg-white-70">
+<body class="bg-gradient-default">
     <div class="main-content">
         <!-- Navbar -->
-        <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
-            <div class="container px-4">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{-- <img src="{{ asset('img/brand/white.png') }}" /> --}}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse-main"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbar-collapse-main">
-                    <!-- Collapse header -->
-                    <div class="navbar-collapse-header d-md-none">
-                        <div class="row">
-                            <div class="col-6 collapse-brand">
-                                <a href="../index.html">
-                                    <img src="{{ asset('img/brand/blue.png') }}">
-                                </a>
-                            </div>
-                            <div class="col-6 collapse-close">
-                                <button type="button" class="navbar-toggler" data-toggle="collapse"
-                                    data-target="#navbar-collapse-main" aria-controls="sidenav-main"
-                                    aria-expanded="false" aria-label="Toggle sidenav">
-                                    <span></span>
-                                    <span></span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Navbar items -->
-                    <ul class="navbar-nav ml-auto">
-                        {{-- <li class="nav-item">
-                            <a class="nav-link nav-link-icon" href="{{ route('register') }}">
-                                <i class="ni ni-circle-08 text-dark"></i>
-                                <span class="nav-link-inner--text text-dark">Regístrate</span>
-                            </a>
-                        </li> --}}
-                        <li class="nav-item ">
-                            <a class="nav-link nav-link-icon " href="{{ route('login') }}">
-                                <i class="ni ni-key-25 text-dark"></i>
-                                <span class="nav-link-inner--text text-dark ">Iniciar sesión</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
         <!-- Header -->
         <div class="header bg-gradient-white-70 py-6 py-lg-10">
         <div class="container">
@@ -74,7 +28,11 @@
         <div class="row justify-content-center">
             <div class="col-lg-7 col-md-20">
                 <img alt="Logo Muninipio" src="{{ asset('img/theme/LogoMuni.png') }}" height="70">
-                <b style="font-size: 30px; color: black;">Visitas MPP</b>
+                <h1 class="text-white">
+                    VISITAS
+                    <small class="text-muted">Municipalidad - Puno</small>
+                  </h1>
+                {{-- <b class="text-white ">Visitas MPP</b> --}}
             </div>
         </div>
     </div>

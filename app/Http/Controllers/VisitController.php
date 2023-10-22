@@ -155,10 +155,11 @@ class VisitController extends Controller
             // ->leftJoin('vistors', 'visits.visitor_id', '=', 'vistors.id')
             ->whereBetween('start_date', [$startDate, $endDate])
             ->with('visitor')
+            ->orderBy('start_date', 'asc')
             ->get();
             // ->get(['start_date', 'subject']);
 
-        return response()->json(['visits' => $visits,''], 200);
+        return response()->json(['visits' => $visits], 200);
 
     }
 }
