@@ -162,4 +162,5 @@ class VisitController extends Controller
         return response()->json(['visits' => $visits], 200);
 
     }
+
 }
