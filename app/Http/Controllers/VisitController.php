@@ -122,14 +122,14 @@ class VisitController extends Controller
                 . "$star - $end\n"
                 . "📌";
 
-                Telegram::sendMessage([
-                    'chat_id' => \env('TELEGRAM_CHANNEL_ID', '-1002021376025'),
-                    'parse_mode' => 'HTML',
-                    'text' => $text
-                ]);
+                // Telegram::sendMessage([
+                //     'chat_id' => \env('TELEGRAM_CHANNEL_ID', '-1002021376025'),
+                //     'parse_mode' => 'HTML',
+                //     'text' => $text
+                // ]);
             }
 
-            return response()->json(['message' => 'The visit with an id of ' . $visit->id . ' was updated to ' . $visit->status], 200);
+            return response()->json(['message' => 'Reunión '. $visit->status. ': ' . $v->name .' - ' . $visit->subject], 200);
         } catch (ModelNotFoundException $e) {
             return response()->json(['message' => 'Visit not found'], 404);
         } catch (Exception $e) {

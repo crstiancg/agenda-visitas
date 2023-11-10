@@ -172,17 +172,20 @@
                                                 .prop('disabled', true)
                                                 .attr('title', `Ocupado: ${visit.subject.valor} - ${visit.name.valor}`);
                                         
-                                                console.log(response);
+                                                // console.log(response);
                                             });
-                                            var contenido = "<ul>";
+                                            let contenido = "<ul>";
     
-                                                for (var i = 0; i < visits.length; i++) {
-                                                    var visit = visits[i];
-                                                    contenido += "<li title='" + visit.customTitle + "' style='padding: 5px;'>";
-                                                    for (var prop in visit) {
+                                                for (let i = 0; i < visits.length; i++) {
+                                                    const visit = visits[i];
+                                                    // console.log(visit.subject);
+                                                    contenido += "<li title='" + visit.subject.valor + "' style='padding: 5px;'>";
+                                                    for (const prop in visit) {
                                                         if (prop !== 'date' && visit.hasOwnProperty(prop)) {
                                                             contenido += "<strong style='color: #172b4d; font-weight: 900; text-transform: uppercase;'>" + visit[prop].titulo + ":</strong> " + visit[prop].valor + ".<br> ";
                                                         }
+                                                        // console.log(visit[prop].valor);
+                                                        // console.log(visit.hasOwnProperty(prop));
                                                     }
                                                     contenido = contenido.slice(0, -2); // Elimina el último guion y espacio
                                                     contenido += ".</li>";
@@ -354,8 +357,8 @@
     <div class="card mt-4 shadow">
         <div class="card card-frame">
             <div class="card-body">
-                <h3 class="text-default">VISITAS PROGRAMADAS (Ocupado)...</h1>
-                <span id="visit"></span>
+                <h2 style='color: #172b4d; font-weight: 900;'>VISITAS PROGRAMADAS</h2>
+                   <span id="visit"></span>
             </div>
           </div>
     </div>

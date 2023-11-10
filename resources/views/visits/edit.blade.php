@@ -125,16 +125,34 @@
                                         // Get the hours that are already taken
                                         const visits = response.visits.map(visit => {
                                             // Turn the date into a moment object
-                                            const date = moment(visit.start_date).format('YYYY-MM-DD HH:mm:ss');
-                                            if (date === "{{ $visit->start_date }}") {
-                                                return;
-                                            }
+                                            const date = moment(visit.start_date).format('DD/MM/YYYY HH:mm');
+                                            const datef = moment(visit.end_date).format('DD/MM/YYYY HH:mm');
+                                            const date2 = moment(visit.start_date).format('DD/MM/YYYY HH:mm');
                                             // Return the hour and the subject
+                                            const titulos = {
+                                                    date: "Hora",
+                                                    asunto: "Asunto",
+                                                    name: "Nombre del visitante",
+                                                    entity: "Entidad"
+                                                };
+
                                             return {
-                                                date: moment(date, 'YYYY-MM-DD HH:mm:ss').format('HH:mm'),
-                                                subject: visit.subject,
+                                                date: moment(date, 'DD/MM/YYYY HH:mm').format('HH:mm'),
+                                                date2: {titulo: titulos.date, valor: moment(date, 'DD/MM/YYYY HH:mm').format('HH:mm') + " - " + moment(datef, 'DD/MM/YYYY HH:mm').format('HH:mm')},
+                                                subject: {titulo: titulos.asunto, valor: visit.subject},
+                                                name: {titulo: titulos.name, valor: visit.visitor.name},
+                                                entity: {titulo: titulos.entity, valor: visit.visitor.entity},
+                                                // entity: visit.visitor.entity,
                                             };
+
                                         });
+
+                                        // const response_ = response.visits.map(v => {
+
+                                        //     console.log(v);
+                                        // });
+
+                                        // console.log(visits);
 
                                         // Enable all buttons
                                         $('.button-radio button').prop('disabled', false);
@@ -145,9 +163,32 @@
                                             // Disable all buttons that start with the hour text and set the title attribute to the subject
                                             $(`.button-radio button[value^="${visit.date}"]`)
                                                 .prop('disabled', true)
-                                                .attr('title', `Asunto: ${visit.subject}`);
-                                        });
-                                    }
+                                                .attr('title', `Ocupado: ${visit.subject.valor} - ${visit.name.valor}`);
+                                        
+                                                // console.log(response);
+                                            });
+                                            let contenido = "<ul>";
+    
+                                                for (let i = 0; i < visits.length; i++) {
+                                                    const visit = visits[i];
+                                                    // console.log(visit.subject);
+                                                    contenido += "<li title='" + visit.subject.valor + "' style='padding: 5px;'>";
+                                                    for (const prop in visit) {
+                                                        if (prop !== 'date' && visit.hasOwnProperty(prop)) {
+                                                            contenido += "<strong style='color: #172b4d; font-weight: 900; text-transform: uppercase;'>" + visit[prop].titulo + ":</strong> " + visit[prop].valor + ".<br> ";
+                                                        }
+                                                        // console.log(visit[prop].valor);
+                                                        // console.log(visit.hasOwnProperty(prop));
+                                                    }
+                                                    contenido = contenido.slice(0, -2); // Elimina el último guion y espacio
+                                                    contenido += ".</li>";
+                                                }
+    
+                                                contenido += "</ul><br>";
+    
+                                                $("#visit").html(contenido);
+
+                                        }
                                 });
                             }
 
@@ -217,7 +258,7 @@
                                 // Restore hour
                                 const dateHour = moment(savedDate, 'YY-MM-DD HH:mm:ss').toDate();
                                 const startHour = moment(dateHour, 'HH:mm').format('HH:mm');
-                                console.log(startHour);
+                                // console.log(startHour);
                                 const button = $(`.button-radio button:contains(${startHour})`);
                                 // Enable the button
                                 button.prop('disabled', false);
@@ -338,6 +379,15 @@
                     type="submit">Actualizar visita</button>
             </form>
         </div>
+    </div>
+
+    <div class="card mt-4 shadow">
+        <div class="card card-frame">
+            <div class="card-body">
+                <h2 style='color: #172b4d; font-weight: 900;'>VISITAS PROGRAMADAS - OCUPADA</h2>
+                   <span id="visit"></span>
+            </div>
+          </div>
     </div>
 
     <div class="modal fade"

@@ -1,28 +1,24 @@
 @extends('layouts.panel')
 @section('title', 'Mostar visitas')
 @section('content')
-    @if (session('status'))
-        <div class="alert alert-success alert-dismissible fade show"
-            role="alert">
-            <span class="alert-icon"><i class="fas fa-check-circle"></i></span>
-            <span class="font-weight-bold">{{ session('status') }}</strong>
-                <button class="close"
-                    data-dismiss="alert"
-                    type="button my-auto"
-                    aria-label="Close">
-                    <span class="pt-1 mt-4 pt-md-0 mt-md-1"
-                        aria-hidden="true">&times;</span>
-                </button>
-        </div>
-    @endif
+@if (session('status'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <span class="alert-icon"><i class="fas fa-check-circle"></i></span>
+  <span class="font-weight-bold">{{ session('status') }}</strong>
+    <button type="button my-auto" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true" class="pt-1 mt-4 pt-md-0 mt-md-1">&times;</span>
+    </button>
+</div>
+@endif
+
     <div class="card shadow">
         <div class="card-header border-1">
             <div class="row align-items-center">
                 <div class="col">
                     <h2>Visitas</h2>
-
+                    
                 </div>
-
+                
                 <div class="col-8">
                     <form class="form-inline pr-5"
                         action="{{ route('visits.index') }}">
@@ -181,7 +177,19 @@
                                                 status
                                             }),
                                             success: function(response) {
-                                                console.log(response.message);
+                                                // $('#messageContainer').html(response);
+                                                // console.log(response.message);
+
+                                                if (response.message.toString().includes('Confirmado')) {
+                                                    // $('#messageContainer').html(response.message);
+                                                        Swal.fire({
+                                                        title: 'La visita fue notificada',
+                                                        text: response.message,
+                                                        icon: 'success',
+                                                        // timer: 4000, // Desaparecerá después de 1 segundo
+                                                        showConfirmButton: true
+                                                    });
+                                                }
                                             },
 
                                             error: function(response) {
