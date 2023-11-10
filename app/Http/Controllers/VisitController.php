@@ -122,11 +122,11 @@ class VisitController extends Controller
                 . "$star - $end\n"
                 . "📌";
 
-                // Telegram::sendMessage([
-                //     'chat_id' => \env('TELEGRAM_CHANNEL_ID', '-1002021376025'),
-                //     'parse_mode' => 'HTML',
-                //     'text' => $text
-                // ]);
+                Telegram::sendMessage([
+                    'chat_id' => \env('TELEGRAM_CHANNEL_ID', '-1002021376025'),
+                    'parse_mode' => 'HTML',
+                    'text' => $text
+                ]);
             }
 
             return response()->json(['message' => 'Reunión '. $visit->status. ': ' . $v->name .' - ' . $visit->subject], 200);
