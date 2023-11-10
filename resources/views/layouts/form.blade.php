@@ -29,8 +29,8 @@
             <div class="col-lg-7 col-md-20">
                 <img alt="Logo Muninipio" src="{{ asset('img/theme/LogoMuni.png') }}" height="70">
                 <h1 class="text-white">
-                    VISITAS
-                    <small class="text-muted">Municipalidad - Puno</small>
+                    REGISTRO DE VISITAS
+                    {{-- <small class="text-muted">Municipalidad - Puno</small> --}}
                   </h1>
                 {{-- <b class="text-white ">Visitas MPP</b> --}}
             </div>
