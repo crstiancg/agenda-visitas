@@ -11,14 +11,15 @@
 </div>
 @endif
 
+
     <div class="card shadow">
         <div class="card-header border-1">
             <div class="row align-items-center">
                 <div class="col">
                     <h2>Visitas</h2>
-                    
+
                 </div>
-                
+
                 <div class="col-8">
                     <form class="form-inline pr-5"
                         action="{{ route('visits.index') }}">
@@ -72,11 +73,33 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
+
+                            @push('script')
+                            <script >
+                    //        $(document).ready(function () {
+
+                    //         $('.date').on('changeDate', function (e) {
+                    // // Obtener la fecha seleccionada en el formato deseado
+                    // const start = moment(e.date).format('DD/MM/YYYY');
+
+                    //     // Asignar la fecha formateada a los inputs
+                    //     $('input[name="start_date"]').val(start);
+                    // });
+                    //         $('.date2').on('changeDate', function (e) {
+                    // // Obtener la fecha seleccionada en el formato deseado
+                    // const end = moment(e.date).format('DD/MM/YYYY');
+
+                    //     // Asignar la fecha formateada a los inputs
+                    //     $('input[name="end_date"]').val(end);
+                    // });
+                    //         });
+                    //     </script>
+                            @endpush
                             <form action="{{ route('home.pdf') }}"
                                 method="GET"
                                 target="_blank">
                                 <div class="modal-body py-0 my-0">
-                                    <div class="input-daterange datepicker row align-items-center">
+                                    <div class=" row align-items-center">
                                         <div class="col">
                                             <div class="form-group">
                                                 <div class="input-group">
@@ -84,9 +107,9 @@
                                                         <span class="input-group-text"><i
                                                                 class="ni ni-calendar-grid-58"></i></span>
                                                     </div>
-                                                    <input class="form-control"
+                                                    <input class="form-control date"
                                                         name="start_date"
-                                                        type="text"
+                                                        type="date"
                                                         placeholder="Fecha inicial">
                                                 </div>
                                             </div>
@@ -98,9 +121,9 @@
                                                         <span class="input-group-text"><i
                                                                 class="ni ni-calendar-grid-58"></i></span>
                                                     </div>
-                                                    <input class="form-control"
+                                                    <input class="form-control date2"
                                                         name="end_date"
-                                                        type="text"
+                                                        type="date"
                                                         placeholder="Fecha final">
                                                 </div>
                                             </div>
@@ -208,7 +231,7 @@
                                         data-toggle="tooltip"
                                         data-placement="top"
                                         title="{{ $visit->subject }}">
-                                        {{ Str::limit($visit->subject, 30) }}
+                                        {{ Str::limit($visit->subject, 40) }}
                                     </p>
                                 </td>
                                 @auth()
@@ -235,7 +258,7 @@
                                 @endauth
                                 <td>
                                     {{ $visit->visitor->name }}
-                                    @if ($visit->visitor->entity=="Persona natural")  
+                                    @if ($visit->visitor->entity=="Persona natural")
                                         <div>
                                             <span class="text-red text-justify-center">
                                                 <i class="fa fa-user"></i>
@@ -324,3 +347,4 @@
         @endif
     </div>
 @endsection
+

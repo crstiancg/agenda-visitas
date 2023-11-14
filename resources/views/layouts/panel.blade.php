@@ -288,28 +288,18 @@
         @guest()
 
 
-            <div class="header bg-gradient-success pb-8 pt-4 pt-md-6">
-                <div class="container">
-                    <div class="element">
-                        <img class="logo"src="img/brand/logo_visitasMPP.png"
-                            alt="logo visitas">
-                    </div>
-                    <div class="element">
-                        <div class="linea-vertical"></div>
-                    </div>
-                    <div class="element">
-                        <h2 style="font-family: Arial, Helvetica, sans-serif;
-                        font-size: 4vmin;
-                        vertical-align: middle;
-                        color: #ABA2A2;
-                        padding-top: 6px;">Registro de Visitas</h2>
-                    </div>
-
-
+            <div class="header bg-gradient-default pb-8 pt-4 pt-md-6">
+                <div class="row justify-content-center">
+                        <h1 class="text-white">
+                            REGISTRO DE VISITAS - MPP
+                            {{-- <small class="text-muted">Municipalidad - Puno</small> --}}
+                          </h1>
+                          {{-- <b class="text-white">Municipalidad Provincial Puno.</b> --}}
+                        {{-- <b class="text-white ">Visitas MPP</b> --}}
                 </div>
 
-                <div class="linea-vertical"></div>
-                <hr class="custom_hr">
+                {{-- <div class="linea-vertical"></div>
+                <hr class="custom_hr"> --}}
             </div>
         @endguest
 
