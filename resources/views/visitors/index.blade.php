@@ -30,7 +30,7 @@
             <th scope="col">Nombre</th>
             <th scope="col">Correo</th>
             <th scope="col">Entidad</th>
-            <th scope="col">DNI</th>
+            <th scope="col">Documento</th>
             <th scope="col">Número de celular</th>
             <th scope="col">Opciones</th>
           </tr>
@@ -41,7 +41,11 @@
               <th scope="row">{{ $visitor->name }}</th>
               <td>{{ $visitor->email }}</td>
               <td>{{ $visitor->entity }}</td>
-              <td>{{ $visitor->dni }}</td>
+              @if ($visitor->entity == 'Persona natural')
+              <td>Dni - {{ $visitor->dni }}</td>
+              @elseif ($visitor->entity == 'Persona jurídica')
+              <td>Ruc - {{ $visitor->ruc }}</td>
+              @endif
               <td>{{ $visitor->phone_number }}</td>
               <td>
                 <a href="{{ route('visitors.edit', $visitor) }}" class="btn btn-sm btn-primary">Editar</a>

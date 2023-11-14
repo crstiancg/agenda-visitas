@@ -31,6 +31,8 @@ class VisitorController extends Controller
         }
 
         $visitor = Visitor::create($request->validated());
+
+        // \dd($visitor);
         return redirect()
             ->route('visitors.index')
             ->with([

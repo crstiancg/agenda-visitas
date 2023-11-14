@@ -13,6 +13,7 @@ class Visitor extends Model
         'name',
         'entity',
         'dni',
+        'ruc',
         'phone_number',
         'email',
     ];
