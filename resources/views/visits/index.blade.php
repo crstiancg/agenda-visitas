@@ -41,7 +41,7 @@
                     </form>
                 </div>
 
-                <button class="btn btn-sm btn-primary "
+                <button class="btn btn-sm btn-primary float-left mb-4 ml-2"
                     data-toggle="modal"
                     data-target="#generatePDF"
                     data-placement="left"

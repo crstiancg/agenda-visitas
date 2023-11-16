@@ -290,23 +290,17 @@
 
             <div class="header bg-gradient-default pb-8 pt-4 pt-md-6">
                 <div class="row justify-content-center">
-                        <h1 class="text-white">
+                    <img src="https://portal.munipuno.gob.pe/sites/default/files/LOGO%20MPP%202022_2.png" alt="Logo MPP" width="400">
+                        <h1 class="text-white" style="padding-top: 40px">
                             REGISTRO DE VISITAS - MPP
-                            {{-- <small class="text-muted">Municipalidad - Puno</small> --}}
-                          </h1>
-                          {{-- <b class="text-white">Municipalidad Provincial Puno.</b> --}}
-                        {{-- <b class="text-white ">Visitas MPP</b> --}}
+                        </h1>
                 </div>
-
-                {{-- <div class="linea-vertical"></div>
-                <hr class="custom_hr"> --}}
             </div>
         @endguest
 
 
         <div class="container-fluid mt--7">
             @yield('content')
-            <!-- Footer -->
             @include('includes.panel.footer')
         </div>
     </div>
