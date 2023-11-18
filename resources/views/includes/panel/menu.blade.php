@@ -34,7 +34,7 @@
       <i class="fas fa-female text-info"></i> Secretarias
     </a>
   </li>
-  <li class="nav-item  {{ is_active('visitors') }}">
+  <li class="nav-item  {{ is_active('visitors') }} {{ is_admin() }}">
     <a class="nav-link {{ is_active('visitors') }}"
       href="{{ route('visitors.index') }}">
       <i class="far fa-id-badge text-yellow"></i> Visitantes

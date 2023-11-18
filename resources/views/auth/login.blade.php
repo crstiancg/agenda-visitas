@@ -42,7 +42,7 @@
                   <input class="form-control"
                     name="email"
                     type="email"
-                    value="{{ old('email', 'soporte@soporte.com') }}"
+                    @if (config('app.env') === 'local') value="{{ old('email', 'soporte@soporte.com') }}" @endif
                     placeholder="Correo Electrónico"
                     required
                     autocomplete="email"

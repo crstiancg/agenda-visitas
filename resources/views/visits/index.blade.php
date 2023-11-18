@@ -13,14 +13,14 @@
 
 
     <div class="card shadow">
-        <div class="card-header border-1">
+        <div class="card-header border-1 mb-4">
             <div class="row align-items-center">
-                <div class="col">
+                <div class="col mb-4">
                     <h2>Visitas</h2>
 
                 </div>
 
-                <div class="col-8">
+                <div class="col-8 mb-4">
                     <form class="form-inline pr-5"
                         action="{{ route('visits.index') }}">
                         <div class="input-group-append"
@@ -48,7 +48,7 @@
                     type="button">PDF</button>
 
                 @auth()
-                    <a class="btn btn-sm btn-primary btn-sm float-right"
+                    <a class="btn btn-sm btn-primary btn-sm float-right mb-4"
                         data-placement="left"
                         href="{{ route('visits.create') }}">Nueva visita</a>
                 @endauth()
