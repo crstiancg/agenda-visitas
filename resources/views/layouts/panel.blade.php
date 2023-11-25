@@ -181,7 +181,7 @@
                             aria-expanded="false">
                             <div class="media align-items-center">
                                 <span class="avatar avatar-sm rounded-circle">
-                                    <img src="{{ asset('img/theme/team-5-800x800.jpg') }}"
+                                    <img src="{{ asset('img/brand/logompp.png') }}"
                                         alt="Image placeholder">
                                 </span>
                             </div>
@@ -198,7 +198,7 @@
                             <div class="col-6 collapse-brand">
                                 <a href="./index.html">
                                     <img class="h-auto w-100"
-                                    src="{{ asset('img/brand/logo_visitasMPP.png') }}"
+                                    src="{{ asset('img/brand/logompp.png') }}"
                                     alt="..."
                                     style="max-height: 200px; max-width: 180px;">
                                 </a>
@@ -224,26 +224,11 @@
             </div>
         </nav>
     @endauth
-    <div class="main-content">
-        <!-- Navbar -->
+    <div class="main-content" style="max-height: 100%">
         <nav class="navbar navbar-top navbar-expand-md navbar-dark"
             id="navbar-main">
             <div class="container-fluid">
                 <div></div>
-                <!-- Form -->
-                {{-- @if (request()->is('home*'))
-          <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
-            <div class="form-group mb-0">
-              <div class="input-group input-group-alternative">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-search"></i></span>
-                </div>
-                <input class="form-control" placeholder="Search" type="text">
-              </div>
-            </div>
-          </form>
-        @endif --}}
-                <!-- User -->
                 @auth
                     <ul class="navbar-nav align-items-center d-none d-md-flex">
                         <li class="nav-item dropdown">
@@ -255,7 +240,7 @@
                                 aria-expanded="false">
                                 <div class="media align-items-center">
                                     <span class="avatar avatar-sm rounded-circle">
-                                        <img src="{{ asset('img/theme/team-5-800x800.jpg') }}"
+                                        <img src="{{ asset('img/brand/logompp.png') }}"
                                             alt="Image placeholder">
                                     </span>
                                     <div class="media-body ml-2 d-none d-lg-block">
@@ -286,12 +271,13 @@
 
 
         @guest()
-
-
             <div class="header bg-gradient-default pb-8 pt-4 pt-md-6">
-                <div class="row justify-content-center">
-                    <img src="https://portal.munipuno.gob.pe/sites/default/files/LOGO%20MPP%202022_2.png" alt="Logo MPP" width="400">
-                        <h1 class="text-white" style="padding-top: 40px">
+                <div class="d-flex justify-content-center">
+                    <img class="h-auto w-100"
+                                    src="{{ asset('img/brand/logompp.png') }}"
+                                    alt="logo mpp"
+                                    style="max-height: 100px; max-width: 150px;">
+                        <h1 class="text-white" style="padding-top: 20px">
                             REGISTRO DE VISITAS - MPP
                         </h1>
                 </div>

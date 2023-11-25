@@ -17,7 +17,6 @@
             <div class="row align-items-center">
                 <div class="col mb-4">
                     <h2>Visitas</h2>
-
                 </div>
 
                 <div class="col-8 mb-4">
@@ -146,7 +145,7 @@
         </div>
         @if ($visits->isEmpty())
             <div class="card px-4">
-                <div class="alert alert-warning py-1"
+                <div class="alert alert-danger py-1 mt-3 text-center"
                     role="alert">
                     <span class="alert-icon"><i class="fas fa-exclamation-triangle"></i></span>
                     <span class="font-weight-bold">No se encontraron resultados</span>
