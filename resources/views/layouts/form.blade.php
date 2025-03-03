@@ -29,7 +29,7 @@
             <div class="col-lg-7 col-md-20">
                 <img alt="Logo Muninipio" src="{{ asset('img/theme/LogoMuni.png') }}" height="70">
                 <h1 class="text-white">
-                    REGISTRO DE VISITAS
+                    Registro de visita
                     {{-- <small class="text-muted">Municipalidad - Puno</small> --}}
                   </h1>
                 {{-- <b class="text-white ">Visitas MPP</b> --}}
@@ -38,7 +38,7 @@
     </div>
 </div>
 
-            <!-- <a href="http://actividades.munipuno.gob.pe/home">
+            {{-- <!-- <a href="http://actividades.munipuno.gob.pe/home">
                 <img src="..\..\..\..\argon-dashboard-master\assets\img\theme\react.png" alt="Admin Logo" height="50">
 
 
@@ -50,7 +50,7 @@
                     xmlns="http://www.w3.org/2000/svg">
                     <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
                 </svg>
-            </div> -->
+            </div> --> --}}
         </div>
         @yield('content')
 
