@@ -176,7 +176,7 @@
                             @endauth
 
                             <tr>
-                                <th scope="col">Asunto</th>
+                                <th scope="col">Motivo</th>
                                 @auth()
                                     <th scope="col">Estado</th>
                                 @endauth
