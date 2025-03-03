@@ -29,6 +29,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('visits', [VisitController::class, 'index'])->name('visits.index');
 Route::get('visist/pdf', [HomeController::class, 'generatePDF'])->name('home.pdf');
+Route::get('visist/dni/{dni}', [VisitController::class, 'getDni']);
 
 // Route::get('/activity', [SendController::class, 'updatedActivity'])->name('activity.updatedActivity');
 

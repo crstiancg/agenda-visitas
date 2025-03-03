@@ -473,6 +473,9 @@
                                 <i class="fas fa-exclamation-circle mr-1"></i>
                                 Ingrese un número de DNI
                             </div>
+                            <div class="mt-2">
+                                <button type="button" id="checkDniButton" class="btn btn-primary">Consultar DNI</button>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label class="form-label"
@@ -665,6 +668,47 @@
             }else{
                 const m = document.getElementById("mensajephone").hidden = false;
             }
+        });
+    </script>
+@endpush
+
+@push('script')
+    <script>
+     $(document).ready(function() {
+            $('#checkDniButton').on('click', function() {
+                var dni = $('#modal_dni').val();  
+
+                if (dni) {
+                    $.ajax({
+                        url: '/visist/dni/' + dni,  
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(response) {
+                            if(!response.existe){
+                                $('#modal_error_dni').addClass('d-none');  
+                                $('#modal_name').val(response.nombreCompleto);
+                            }else if (response.existe) {
+                                $('#modal_error_dni').addClass('d-none');  
+                                $('#modal_name').val(response.name);
+                                $('#modal_phone_number').val(response.phone_number);
+                                $('#modal_email').val(response.email);
+                                $('#modal_name').prop('disabled', true);
+                                $('#modal_phone_number').prop('disabled', true);
+                                $('#modal_email').prop('disabled', true);
+                            } else {
+                                $('#modal_error_dni').removeClass('d-none');
+                                $('#modal_error_message_dni').text('No se encontró la persona con el DNI proporcionado.');
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            $('#modal_error_dni').removeClass('d-none');
+                            $('#modal_error_message_dni').text('Hubo un error al procesar la solicitud.');
+                        }
+                    });
+                } else {
+                    $('#modal_error_dni').addClass('d-none');  
+                }
+            });
         });
     </script>
 @endpush

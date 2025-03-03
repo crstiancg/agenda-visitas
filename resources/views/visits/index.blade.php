@@ -15,11 +15,11 @@
     <div class="card shadow">
         <div class="card-header border-1 mb-4">
             <div class="row align-items-center">
-                <div class="col mb-4">
+                <div class="col-2 mb-4">
                     <h2>Visitas</h2>
                 </div>
 
-                <div class="col-8 mb-4">
+                <div class="col-4 mb-4">
                     <form class="form-inline pr-5"
                         action="{{ route('visits.index') }}">
                         <div class="input-group-append"
@@ -27,18 +27,28 @@
                             <input name="visitor"
                                 type="text"
                                 value="{{ request('visitor') }}"
-                                style="height: 30px !important; padding-right: 100px !important;"
                                 x-cloak
                                 @input="isActive = true"
                                 @blur="isActive = false"
                                 :class="['form-control mr-2 pr-5']"
                                 placeholder="Nombre del visitante">
-                            <button type="submit"
-                                x-cloak
-                                :class="{ 'py-0': true, 'btn': true, 'btn-outline-primary': true, 'active': isActive }">Buscar</button>
+                            <button type="submit" class="btn btn-outline-primary">Buscar</button>
                         </div>
                     </form>
                 </div>
+
+                <div class="col-4 mb-4">
+                    <form class="form-inline pr-5" action="{{ route('visits.index') }}" method="GET">
+                        <div class="input-group-append">
+                            <input type="date" 
+                                   name="date_filter" 
+                                   value="{{ old('date_filter', \Carbon\Carbon::today()->format('Y-m-d')) }}"
+                                   class="form-control mr-1">
+                            <button type="submit" class="btn btn-outline-primary">Filtrar</button>
+                        </div>
+                    </form>
+                </div>
+                
 
                 <button class="btn btn-sm btn-primary float-left mb-4 ml-2"
                     data-toggle="modal"

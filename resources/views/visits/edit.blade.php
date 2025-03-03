@@ -61,12 +61,10 @@
                                 } else if (date.isSame(dayAfterTomorrow, 'day')) {
                                     return `Pasado mañana, ${formattedDate}`;
                                 } else {
-                                    // Capitalize first letter
                                     return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
                                 }
                             }
 
-                            // Get selected range
                             function getSelectedHour() {
                                 const activeButton = $('.button-radio .btn.active');
                                 const buttonText = activeButton.text();
@@ -74,13 +72,11 @@
                                 return !hourStr ? null : hourStr;
                             }
 
-                            // Get selected date
                             function getSelectedDate() {
                                 const selectedDate = $('#datepicker-btn').datepicker('getFormattedDate');
                                 return selectedDate;
                             }
 
-                            // Translate into spanish the date picker
                             $.fn.datepicker.dates['es'] = {
                                 days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sabado"],
                                 daysShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
@@ -93,11 +89,9 @@
                                 today: "Hoy",
                                 format: "dd/mm/yyyy",
                                 titleFormat: "MM yyyy",
-                                /* Leverages same syntax as 'format' */
                                 weekStart: 0
                             };
 
-                            // Initialize datepicker
                             $('#datepicker-btn').datepicker({
                                 language: 'es',
                                 format: 'dd/mm/yyyy',
@@ -108,7 +102,6 @@
                                 daysOfWeekDisabled: [0, 6],
                             });
 
-                            // Get the  visits that are in the database and share the same date
                             function getVisits(selectedDate) {
                                 $.ajax({
                                     url: '{{ route('visits.get') }}',
@@ -122,13 +115,10 @@
                                     }),
 
                                     success: function(response) {
-                                        // Get the hours that are already taken
                                         const visits = response.visits.map(visit => {
-                                            // Turn the date into a moment object
                                             const date = moment(visit.start_date).format('DD/MM/YYYY HH:mm');
                                             const datef = moment(visit.end_date).format('DD/MM/YYYY HH:mm');
                                             const date2 = moment(visit.start_date).format('DD/MM/YYYY HH:mm');
-                                            // Return the hour and the subject
                                             const titulos = {
                                                     date: "Hora",
                                                     asunto: "Asunto",
@@ -142,25 +132,14 @@
                                                 subject: {titulo: titulos.asunto, valor: visit.subject},
                                                 name: {titulo: titulos.name, valor: visit.visitor.name},
                                                 entity: {titulo: titulos.entity, valor: visit.visitor.entity},
-                                                // entity: visit.visitor.entity,
                                             };
 
                                         });
 
-                                        // const response_ = response.visits.map(v => {
-
-                                        //     console.log(v);
-                                        // });
-
-                                        // console.log(visits);
-
-                                        // Enable all buttons
                                         $('.button-radio button').prop('disabled', false);
-                                        // Remove any previous title
                                         $('.button-radio button').removeAttr('title');
 
                                         visits.forEach(visit => {
-                                            // Disable all buttons that start with the hour text and set the title attribute to the subject
                                             $(`.button-radio button[value^="${visit.date}"]`)
                                                 .prop('disabled', true)
                                                 .attr('title', `Ocupado: ${visit.subject.valor} - ${visit.name.valor}`);
@@ -199,7 +178,6 @@
                                     getVisits(selectedDate);
                                     $('#modal_entity').trigger('change');
 
-                                    // Set the datepicker button's text to the selected date in a human readable format
                                     const formattedDate = formatDate(selectedDate);
                                     $('#datepicker-btn').html(
                                         `<i class="far fa-calendar-alt"></i>&nbsp;&nbsp;${formattedDate}`
@@ -207,7 +185,6 @@
                                     $('#date').val(selectedDate);
                                 } else {
                                     console.log("No date is selected");
-                                    // Set the datepicker button's text to the default
                                     $('#datepicker-btn').html(
                                         `<i class="far fa-calendar-alt"></i>&nbsp;&nbsp;Fecha`
                                     );
@@ -215,10 +192,8 @@
                                 }
                             });
 
-                            // Turn everything that has the class "button-radio" into an advanced button radio group
                             $('.button-radio button').click(function() {
                                 if (!$(this).is(':disabled') && !$(this).hasClass('active')) {
-                                    // The button is selected
                                     $(this).parent().find('.active').removeClass('active');
                                     $(this).addClass('active');
 
@@ -228,12 +203,9 @@
                                 }
                             });
 
-                            // Restore previous date
                             let oldDate = "{{ old('date') }}";
                             if (oldDate) {
-                                // convert the date to a valid JS Date object
                                 const date = moment(oldDate, 'DD/MM/YYYY').toDate();
-                                // set the datepicker to the new date
                                 $('#datepicker-btn').datepicker('setDate', oldDate);
 
                                 // Set the datepicker to today if today is not sunday or saturday
@@ -394,8 +366,7 @@
         id="add-new-visitor"
         role="dialog"
         tabindex="-1">
-        <div class="modal-dialog"
-            role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>Añadir nuevo visitante:</h3>
@@ -464,23 +435,21 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group"
-                            id="modal_dni_display">
-                            <label class="form-label"
-                                for="modal_dni">DNI:</label>
-                            <input class="form-control"
-                                id="modal_dni"
-                                name="modal_dni"
-                                type="text">
-                            <div class="d-none"
-                                id="modal_error_dni">
-                                <div class="mt-2 py-1 pl-2 alert alert-danger error-alert"
-                                    role="alert">
+                        <div class="form-group" id="modal_dni_display">
+                            <label class="form-label" for="modal_dni">DNI:</label>
+                            <input class="form-control" id="modal_dni" name="modal_dni" type="text">
+                            <div class="d-none" id="modal_error_dni">
+                                <div class="mt-2 py-1 pl-2 alert alert-danger error-alert" role="alert">
                                     <i class="fas fa-exclamation-circle mr-1"></i>
                                     <strong id="modal_error_message_dni"></strong>
                                 </div>
                             </div>
+                            <div class="mt-2">
+                                <button type="button" id="checkDniButton" class="btn btn-primary">Consultar DNI</button>
+                            </div>
                         </div>
+                        
+                        
                         <div class="form-group">
                             <label class="form-label"
                                 for="modal_phone_number">Número de celular (opcional):</label>
@@ -642,6 +611,47 @@
             // Execute at least once
             $('#modal_entity').change();
         })
+    </script>
+@endpush
+
+@push('script')
+    <script>
+     $(document).ready(function() {
+            $('#checkDniButton').on('click', function() {
+                var dni = $('#modal_dni').val();  
+
+                if (dni) {
+                    $.ajax({
+                        url: '/visist/dni/' + dni,  
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(response) {
+                            if(!response.existe){
+                                $('#modal_error_dni').addClass('d-none');  
+                                $('#modal_name').val(response.nombreCompleto);
+                            }else if (response.existe) {
+                                $('#modal_error_dni').addClass('d-none');  
+                                $('#modal_name').val(response.name);
+                                $('#modal_phone_number').val(response.phone_number);
+                                $('#modal_email').val(response.email);
+                                $('#modal_name').prop('disabled', true);
+                                $('#modal_phone_number').prop('disabled', true);
+                                $('#modal_email').prop('disabled', true);
+                            } else {
+                                $('#modal_error_dni').removeClass('d-none');
+                                $('#modal_error_message_dni').text('No se encontró la persona con el DNI proporcionado.');
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            $('#modal_error_dni').removeClass('d-none');
+                            $('#modal_error_message_dni').text('Hubo un error al procesar la solicitud.');
+                        }
+                    });
+                } else {
+                    $('#modal_error_dni').addClass('d-none');  
+                }
+            });
+        });
     </script>
 @endpush
 

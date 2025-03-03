@@ -22,7 +22,7 @@ class VisitorController extends Controller
     public function store(StoreVisitorRequest $request)
     {
         if ($request->ajax()) {
-            $visitor = Visitor::create($request->validated());
+            $visitor = Visitor::updateOrCreate($request->validated());
             return response()->json([
                 'message' => "New visitor with name: \"{$visitor->name}\" added",
                 'id' => $visitor->id,
@@ -30,7 +30,7 @@ class VisitorController extends Controller
             ], 200);
         }
 
-        $visitor = Visitor::create($request->validated());
+        $visitor = Visitor::updateOrCreate($request->validated());
 
         // \dd($visitor);
         return redirect()

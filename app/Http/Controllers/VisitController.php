@@ -7,6 +7,7 @@ use App\Models\Visit;
 use App\Models\Visitor;
 use Carbon\Carbon;
 use Exception;
+use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -17,24 +18,25 @@ class VisitController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('visitor');
-
+        
+        $selectedDate = $request->input('date_filter', Carbon::today()->format('Y-m-d')); // Si no se proporciona, usa hoy.
+        $startOfDay = Carbon::createFromFormat('Y-m-d', $selectedDate)->startOfDay();
+    
+        // $formattedStartDate = $startOfDay->format('Y-m-d');  
+    
         $visits = Visit::query()
             ->when($search, function ($query, $search) {
                 return $query->whereHas('visitor', function ($query) use ($search) {
                     $query->where('name', 'like', "%$search%");
                 });
             })
+            ->whereDate('start_date', $selectedDate) 
             ->orderBy('created_at', 'desc');
-
-        if (auth()->guest()) {
-            $visits = $visits->where('status', 'Confirmado');
-        }
-
-        $visits = $visits->orderBy('created_at', 'desc')
-            ->paginate(10);
+    
+        $visits = $visits->paginate(10);
+    
         return view('visits.index', compact('visits'));
     }
-
     public function show()
     {
         // return view('visits.show');
@@ -161,6 +163,34 @@ class VisitController extends Controller
 
         return response()->json(['visits' => $visits], 200);
 
+    }
+
+    public function getDni(string $dni)
+    {
+        $persona = Visitor::where('dni', $dni)->first();
+        if ($persona) {
+            $persona->existe = true;
+            return response()->json($persona);
+        } else {
+            $token = 'apis-token-6807.Z1QDuGGlyyYJEtNrFCo1TmgDHOx54FNE';
+            // $numero = '46027897';
+            $client = new Client(['base_uri' => 'https://api.apis.net.pe', 'verify' => false]);
+            $parameters = [
+                'http_errors' => false,
+                'connect_timeout' => 5,
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Referer' => 'https://apis.net.pe/dnisolicitante',
+                    'User-Agent' => 'laravel/guzzle',
+                    'Accept' => 'application/json',
+                ],
+                'query' => ['numero' => $dni]
+            ];
+            $res = $client->request('GET', '/v2/reniec/dni', $parameters);
+            $response = json_decode($res->getBody()->getContents(), true);
+
+            return response()->json($response);
+        }
     }
 
 }
