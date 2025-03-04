@@ -138,13 +138,28 @@
 
                                         $('.button-radio button').prop('disabled', false);
                                         $('.button-radio button').removeAttr('title');
-
-                                        visits.forEach(visit => {
-                                            $(`.button-radio button[value^="${visit.date}"]`)
-                                                .prop('disabled', true)
-                                                .attr('title', `Ocupado: ${visit.subject.valor} - ${visit.name.valor}`);
                                         
-                                                // console.log(response);
+                                        visits.forEach(visit => {
+                                                // Obtener el rango de horas de la visita (por ejemplo "08:00 - 10:00")
+                                                const timeRange = visit.date2.valor.split(" - ");
+                                                
+                                                // Convertir las horas de inicio y fin a objetos moment
+                                                const startHour = moment(timeRange[0], 'HH:mm');
+                                                const endHour = moment(timeRange[1], 'HH:mm');
+
+                                                // Iterar sobre el rango de horas entre la hora de inicio y la hora final
+                                                while (startHour.isBefore(endHour)) {
+                                                    // Formatear la hora actual como HH:mm
+                                                    const formattedHour = startHour.format('HH:mm');
+                                                    
+                                                    // Deshabilitar el botón correspondiente a esa hora
+                                                    $(`.button-radio button[value^="${formattedHour}"]`)
+                                                        .prop('disabled', true)
+                                                        .attr('title', `Ocupado: ${visit.subject.valor} - ${visit.name.valor}`);
+                                                    
+                                                    // Incrementar la hora en 30 minutos para la siguiente iteración
+                                                    startHour.add(30, 'minutes');
+                                                }
                                             });
                                             let contenido = "<ul>";
     

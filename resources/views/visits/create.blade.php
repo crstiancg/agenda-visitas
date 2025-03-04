@@ -166,13 +166,35 @@
                                         // Remove any previous title
                                         $('.button-radio button').removeAttr('title');
 
-                                        visits.forEach(visit => {
-                                            // Disable all buttons that start with the hour text and set the title attribute to the subject
-                                            $(`.button-radio button[value^="${visit.date}"]`)
-                                                .prop('disabled', true)
-                                                .attr('title', `Ocupado: ${visit.subject.valor} - ${visit.name.valor}`);
+                                        // visits.forEach(visit => {
+                                        //     // Disable all buttons that start with the hour text and set the title attribute to the subject
+                                        //     $(`.button-radio button[value^="${visit.date}"]`)
+                                        //         .prop('disabled', true)
+                                        //         .attr('title', `Ocupado: ${visit.subject.valor} - ${visit.name.valor}`);
                                         
-                                                // console.log(response);
+                                        //         // console.log(response);
+                                        //     });
+                                        visits.forEach(visit => {
+                                                // Obtener el rango de horas de la visita (por ejemplo "08:00 - 10:00")
+                                                const timeRange = visit.date2.valor.split(" - ");
+                                                
+                                                // Convertir las horas de inicio y fin a objetos moment
+                                                const startHour = moment(timeRange[0], 'HH:mm');
+                                                const endHour = moment(timeRange[1], 'HH:mm');
+
+                                                // Iterar sobre el rango de horas entre la hora de inicio y la hora final
+                                                while (startHour.isBefore(endHour)) {
+                                                    // Formatear la hora actual como HH:mm
+                                                    const formattedHour = startHour.format('HH:mm');
+                                                    
+                                                    // Deshabilitar el botón correspondiente a esa hora
+                                                    $(`.button-radio button[value^="${formattedHour}"]`)
+                                                        .prop('disabled', true)
+                                                        .attr('title', `Ocupado: ${visit.subject.valor} - ${visit.name.valor}`);
+                                                    
+                                                    // Incrementar la hora en 30 minutos para la siguiente iteración
+                                                    startHour.add(30, 'minutes');
+                                                }
                                             });
                                             let contenido = "<ul>";
     
@@ -221,19 +243,51 @@
                                     return
                                 }
                             });
+                            let selectedHours = []; // Array para almacenar las franjas horarias seleccionadas
 
-                            // Turn everything that has the class "button-radio" into an advanced button radio group
-                            $('.button-radio button').click(function() {
-                                if (!$(this).is(':disabled') && !$(this).hasClass('active')) {
-                                    // The button is selected
-                                    $(this).parent().find('.active').removeClass('active');
-                                    $(this).addClass('active');
+                                $('.button-radio button').click(function() {
+                                    const hour = $(this).val(); // Obtén el rango de horas (ej. "11:00 - 11:30")
+                                    const isActive = $(this).hasClass('active');
 
-                                    $('#start_hour').val(moment(getSelectedHour(), 'HH:mm').format('HH:mm'));
-                                } else if ($(this).hasClass('active')) {
-                                    $(this).removeClass('active');
-                                }
-                            });
+                                    // Si el botón no está deshabilitado, se activa o desactiva según corresponda
+                                    if (!$(this).is(':disabled')) {
+                                        if (isActive) {
+                                            // Si ya está activo, lo desactivamos y lo quitamos del array
+                                            $(this).removeClass('active');
+                                            selectedHours = selectedHours.filter(h => h !== hour);
+                                        } else {
+                                            // Si no está activo, lo activamos y lo agregamos al array
+                                            $(this).addClass('active');
+                                            selectedHours.push(hour);
+                                        }
+                                    }
+
+                                    // Si se seleccionaron horas
+                                    if (selectedHours.length > 0) {
+                                        // Obtener la primera hora (inicio) y la última hora (fin)
+                                        const startHour = selectedHours[0].split(' - ')[0]; // Primera hora del rango
+                                        const endHour = selectedHours[selectedHours.length - 1].split(' - ')[1]; // Última hora del rango
+
+                                        // Actualizamos los campos de hora de inicio y hora de fin
+                                        $('#start_hour').val(startHour);
+                                        $('#end_hour').val(endHour);
+                                    }
+                                });
+
+                            
+
+
+                            // $('.button-radio button').click(function() {
+                            //     if (!$(this).is(':disabled') && !$(this).hasClass('active')) {
+                            //         // The button is selected
+                            //         $(this).parent().find('.active').removeClass('active');
+                            //         $(this).addClass('active');
+
+                            //         $('#start_hour').val(moment(getSelectedHour(), 'HH:mm').format('HH:mm'));
+                            //     } else if ($(this).hasClass('active')) {
+                            //         $(this).removeClass('active');
+                            //     }
+                            // });
 
                             // Restore previous date
                             let oldDate = "{{ old('date') }}";
@@ -277,8 +331,8 @@
                             <button class="badge-pill btn btn-outline-primary px-lg-5 px-md-4 mr-3 mt-2"
                                 type="button"
                                 value="{{ $hour }}" data-toggle="tooltip" data-placement="top">{{ $hour }}</button>
-                        @endforeach
-                    </div>
+                                @endforeach
+                            </div>
                     @if ($errors->has('start_hour') || $errors->has('date'))
                         <div class="mt-2 py-1 pl-2 alert alert-danger error-alert"
                             role="alert">
@@ -297,6 +351,8 @@
                     for="modal_visitor_id">Visitante:
                     <span class="text-red">*</span> 
                 </label>
+                <input type="hidden" id="end_hour" name="end_hour">
+
                 <div class="form-group row"
                     id="visitorsContainer">
                     <div class="col pr-0">

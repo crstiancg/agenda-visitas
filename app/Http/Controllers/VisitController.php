@@ -50,15 +50,44 @@ class VisitController extends Controller
         return view('visits.create')->with(compact('visitors', 'entities'));
     }
 
+
+    // public function store(StoreVisitRequest $request)
+    // {
+    //     $date = $request->get('date');
+    //     $start_hour = $request->get('start_hour');
+
+    //     $start_date = Carbon::createFromFormat('d/m/Y H:i', $date . ' ' . $start_hour);
+    //     $end_date = $start_date->copy()->addMinutes(30);
+
+    //     // Save the data
+    //     $visit = Visit::create([
+    //         'subject' => $request->get('subject'),
+    //         'start_date' => $start_date,
+    //         'end_date' => $end_date,
+    //         'visitor_id' => $request->get('visitor_id'),
+    //         'user_id' => $request->get('user_id'),
+    //     ]);
+
+    //     return redirect()->route('visits.index')->with(['status' => "¡La visita fue creada exitosamente!"]);
+    // }
+
     public function store(StoreVisitRequest $request)
     {
-        $date = $request->get('date');
-        $start_hour = $request->get('start_hour');
-
+        $date = $request->get('date'); // Fecha seleccionada
+        $start_hour = $request->get('start_hour'); // Hora de inicio
+        $end_hour = $request->get('end_hour'); // Hora de fin
+    
+        // Concatenamos la fecha con la hora de inicio y fin para obtener las fechas completas
         $start_date = Carbon::createFromFormat('d/m/Y H:i', $date . ' ' . $start_hour);
-        $end_date = $start_date->copy()->addMinutes(30);
-
-        // Save the data
+        $end_date = Carbon::createFromFormat('d/m/Y H:i', $date . ' ' . $end_hour);
+    
+        // Si start_hour y end_hour son iguales, tratamos de crear un único intervalo
+        if ($start_hour === $end_hour) {
+            // Añadir 30 minutos de duración
+            $end_date = $start_date->copy()->addMinutes(30);
+        }
+    
+        // Guardar la visita
         $visit = Visit::create([
             'subject' => $request->get('subject'),
             'start_date' => $start_date,
@@ -66,10 +95,10 @@ class VisitController extends Controller
             'visitor_id' => $request->get('visitor_id'),
             'user_id' => $request->get('user_id'),
         ]);
-
+    
         return redirect()->route('visits.index')->with(['status' => "¡La visita fue creada exitosamente!"]);
     }
-
+    
     public function edit(Visit $visit)
     {
         $entities = Visitor::$entities;
@@ -108,30 +137,31 @@ class VisitController extends Controller
             $visit->save();
 
             $v = $visit->visitor;
-            // $visitor = Visitor::findOrFail($request->input('id'));
-            if($visit->status == "Confirmado") {
-                $date = Carbon::parse($visit->start_date)->format('d/m/Y');
-                $star = Carbon::parse($visit->start_date)->format('H:i');
-                $end = Carbon::parse($visit->end_date)->format('H:i');
-                $text = "<b>VISITA CONFIRMADA</b>\n"
-                . "<strong>REUNIÓN CON:</strong>\n"
-                . "$v->name\n"
-                . "<strong>MOTIVO DE LA VISITA:</strong>\n"
-                . "$visit->subject\n"
-                . "<strong>FECHA:</strong>\n"
-                . "$date\n"
-                . "<strong>HORA:</strong>\n"
-                . "$star - $end\n"
-                . "📌";
+            // // $visitor = Visitor::findOrFail($request->input('id'));
+            // if($visit->status == "Confirmado") {
+            //     $date = Carbon::parse($visit->start_date)->format('d/m/Y');
+            //     $star = Carbon::parse($visit->start_date)->format('H:i');
+            //     $end = Carbon::parse($visit->end_date)->format('H:i');
+            //     $text = "<b>VISITA CONFIRMADA</b>\n"
+            //     . "<strong>REUNIÓN CON:</strong>\n"
+            //     . "$v->name\n"
+            //     . "<strong>MOTIVO DE LA VISITA:</strong>\n"
+            //     . "$visit->subject\n"
+            //     . "<strong>FECHA:</strong>\n"
+            //     . "$date\n"
+            //     . "<strong>HORA:</strong>\n"
+            //     . "$star - $end\n"
+            //     . "📌";
 
-                Telegram::sendMessage([
-                    'chat_id' => \env('TELEGRAM_CHANNEL_ID', '-1002021376025'),
-                    'parse_mode' => 'HTML',
-                    'text' => $text
-                ]);
-            }
+            //     Telegram::sendMessage([
+            //         'chat_id' => \env('TELEGRAM_CHANNEL_ID', '-1002021376025'),
+            //         'parse_mode' => 'HTML',
+            //         'text' => $text
+            //     ]);
+            // }
 
             return response()->json(['message' => 'Reunión '. $visit->status. ': ' . $v->name .' - ' . $visit->subject], 200);
+            // return response()->json(['message' => 'Reunión '. $visit->status. '', $visit->subject], 200);
         } catch (ModelNotFoundException $e) {
             return response()->json(['message' => 'Visit not found'], 404);
         } catch (Exception $e) {
@@ -192,5 +222,6 @@ class VisitController extends Controller
             return response()->json($response);
         }
     }
+
 
 }

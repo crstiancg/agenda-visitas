@@ -25,15 +25,15 @@ class StoreVisitRequest extends FormRequest
     {
         return [
             'subject' => 'required|string|max:255',
-            // 'start_date' => 'required|date|before:end_date',
-            // 'end_date' => 'required|date|after:start_date',
-            'date' => 'required',
+            'date' => 'required|date',
             'start_hour' => 'required|date_format:H:i',
-            'status' => 'nullable|in:Pendiente,Confirmado,Cancelado',
+            'end_hour' => 'nullable|date_format:H:i|after:start_hour', // Verificación de que la hora final sea después de la hora de inicio
             'visitor_id' => 'required|exists:visitors,id',
             'user_id' => 'required|integer|exists:users,id',
         ];
     }
+    
+
 
     public function attributes()
     {

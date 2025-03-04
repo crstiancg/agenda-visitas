@@ -209,14 +209,15 @@
                                                 status
                                             }),
                                             success: function(response) {
+                                                 console.log(response);
                                                 // $('#messageContainer').html(response);
                                                 // console.log(response.message);
 
                                                 if (response.message.toString().includes('Confirmado')) {
                                                     // $('#messageContainer').html(response.message);
                                                         Swal.fire({
-                                                        title: 'La visita fue notificada',
-                                                        text: response.message,
+                                                        title: 'Visita confirmada!',
+                                                        text: response.message, 
                                                         icon: 'success',
                                                         // timer: 4000, // Desaparecerá después de 1 segundo
                                                         showConfirmButton: true
@@ -236,11 +237,8 @@
                             <tr>
                                 {{-- <td scope="row" title="{{ $visit->subject }}">{{ Str::limit($visit->subject, 30) }}</td> --}}
                                 <td scope="row">
-                                    <p class="text-sm font-weight-bold mb-0"
-                                        data-toggle="tooltip"
-                                        data-placement="top"
-                                        title="{{ $visit->subject }}">
-                                        {{ Str::limit($visit->subject, 40) }}
+                                    <p class="text-sm font-weight-bold mb-0" style="max-width:600px; white-space: initial;">
+                                        {{ $visit->subject }}
                                     </p>
                                 </td>
                                 @auth()
@@ -290,14 +288,11 @@
                                     <td>
                                         <a class="btn btn-sm btn-primary"
                                             href="{{ route('visits.edit', $visit) }}">Editar</a>
-
-                                        <!-- Button trigger modal -->
-                                        {{-- @if (auth()->user()->role =="admin")     --}}
+                                        {{-- <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#reunionesHoyModal" type="button">Ver Reuniones de Hoy</button> --}}
                                         <button class="btn btn-sm btn-danger"
                                             data-toggle="modal"
                                             data-target="#deleteModal{{ $visit->id }}"
                                             type="button">Eliminar</button>
-                                        {{-- @endif --}}
                                     </td>
                                 @endauth
                             </tr>

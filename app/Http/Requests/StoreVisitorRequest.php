@@ -35,10 +35,11 @@ class StoreVisitorRequest extends FormRequest
 
         // ];
         return [
-            'dni' => 'required',
+            'dni' => 'bail|nullable|required_if:entity,Persona natural|numeric|digits:8|' . Rule::unique('visitors', 'dni')->ignore($this->route('visitor')),
             'name' => 'required',
             'entity' => 'required',
             'ruc' => 'bail|nullable|required_if:entity,Persona jurídica|numeric|digits:11',
+            'phone_number' => 'bail|nullable|numeric|digits:9|' . Rule::unique('visitors', 'phone_number')->ignore($this->route('visitor')),
             'email' =>  'required',
         ];
     }
