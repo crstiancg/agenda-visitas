@@ -28,7 +28,14 @@
       <i class="fas fa-table text-blue"></i> Visitas
     </a>
   </li>
-  <li class="nav-item {{ is_active('secretaries') }} {{ is_admin() }}">
+  <li class="nav-item {{ is_active('visita') }} {{ is_admin() }}">
+    <a class="nav-link {{ is_active('visita') }}"
+      href="{{ route('visita.index') }}">
+      {{-- icono de tabla --}}
+      <i class="fas fa-table text-blue"></i> Visitas Confirmadas
+    </a>
+  </li>
+  <li class="nav-item {{ is_active('secretaries') }}">
     <a class="nav-link {{ is_active('secretaries') }}"
       href="{{ route('secretaries.index') }}">
       <i class="fas fa-female text-info"></i> Secretarias

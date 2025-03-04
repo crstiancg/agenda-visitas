@@ -12,15 +12,15 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::updateOrCreate(
-            ['name' => 'Soporte'],
+            ['name' => 'Administrador'],
             [
-                'email' => 'soporte@soporte.com',
+                'email' => 'password@gmail.com',
                 'email_verified_at' => now(),
-                'password' => Hash::make('soporte1'),
+                'password' => Hash::make('password'),
                 'remember_token' => Str::random(10),
                 'role' => 'admin',
             ]
         );
-        User::factory(5)->create();
+        // User::factory(5)->create();
     }
 }
