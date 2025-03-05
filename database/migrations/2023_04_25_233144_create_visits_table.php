@@ -19,8 +19,8 @@ class CreateVisitsTable extends Migration
             $table->datetime('start_date');
             $table->datetime('end_date');
             $table->enum('status', ['Pendiente', 'Confirmado', 'Cancelado'])->default('Pendiente');
-            $table->foreignId('visitor_id')->constrained('visitors')->onDelete('cascade');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('visitor_id')->constrained('visitors');
+            $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
     }

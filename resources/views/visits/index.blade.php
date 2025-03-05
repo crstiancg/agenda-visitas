@@ -13,13 +13,13 @@
 
 
     <div class="card shadow">
-        <div class="card-header border-1 mb-4">
+        <div class="card-header border-1">
             <div class="row align-items-center">
-                <div class="col-2 mb-4">
+                <div class="col-md-2 col-12 mb-4">
                     <h2>Visitas</h2>
                 </div>
 
-                <div class="col-4 mb-4">
+                <div class="col-md-4 col-12 mb-4">
                     <form class="form-inline pr-5"
                         action="{{ route('visits.index') }}">
                         <div class="input-group-append"
@@ -37,7 +37,7 @@
                     </form>
                 </div>
 
-                <div class="col-4 mb-4">
+                <div class="col-md-4 col-12 mb-4">
                     <form class="form-inline pr-5" action="{{ route('visits.index') }}" method="GET">
                         <div class="input-group-append">
                             <input type="date" 

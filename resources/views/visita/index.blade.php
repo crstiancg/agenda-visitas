@@ -15,12 +15,12 @@
     <div class="card shadow">
         <div class="card-header border-1 mb-4">
             <div class="row align-items-center">
-                <div class="col-2 mb-4">
+                <div class="col-md-2 mb-4 col-12">
                     <h2>Visitas</h2>
                 </div>
 
-                <div class="col-4 mb-4">
-                    <form class="form-inline pr-5"
+                <div class="col-md-4 mb-4 col-12">
+                    <form class="form-inline"
                         action="{{ route('visits.index') }}">
                         <div class="input-group-append"
                             x-data="{ isActive: false }">
@@ -30,15 +30,15 @@
                                 x-cloak
                                 @input="isActive = true"
                                 @blur="isActive = false"
-                                :class="['form-control mr-2 pr-5']"
+                                :class="['form-control mr-2']"
                                 placeholder="Nombre del visitante">
                             <button type="submit" class="btn btn-outline-primary">Buscar</button>
                         </div>
                     </form>
                 </div>
 
-                <div class="col-4 mb-4">
-                    <form class="form-inline pr-5" action="{{ route('visits.index') }}" method="GET">
+                <div class="col-md-4 mb-4 col-12">
+                    <form class="form-inline" action="{{ route('visits.index') }}" method="GET">
                         <div class="input-group-append">
                             <input type="date" 
                                    name="date_filter" 
@@ -232,7 +232,7 @@
                             @endpush
                         @endauth
                         @foreach ($visits as $visit)
-                        @if ($visit->status === 'Confirmado')
+                        @if ($visit->status === 'Confirmado' || $visit->status === 'Pendiente')
                             <tr>
                                 {{-- <td scope="row" title="{{ $visit->subject }}">{{ Str::limit($visit->subject, 30) }}</td> --}}
                                 <td scope="row">

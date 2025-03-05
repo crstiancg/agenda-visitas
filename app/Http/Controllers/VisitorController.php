@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreVisitorRequest;
+use App\Models\Visit;
 use App\Models\Visitor;
 
 class VisitorController extends Controller
@@ -68,11 +69,23 @@ class VisitorController extends Controller
 
     public function destroy(Visitor $visitor)
     {
+        $existsInVisit = Visit::where('visitor_id', $visitor->id)->exists();
+
+        if ($existsInVisit) {
+            return redirect()
+                ->route('visitors.index')
+                ->with([
+                    'status' => "No se puede eliminar al visitante \"$visitor->name\" porque está siendo registrado en visitas."
+                ]);
+        }
+
         $visitor->delete();
+
         return redirect()
             ->route('visitors.index')
             ->with([
                 'status' => "¡El visitante \"$visitor->name\" fue eliminado exitosamente!"
             ]);
     }
+
 }
